@@ -1,0 +1,95 @@
+openapi: 3.0.1
+info:
+  title: Calculator API
+  description: >-
+    This API provides different services to obtain the result of different
+    operations.
+  version: '1.0'
+  termsOfService: 'https://calculator.spilab.es/terms'
+  contact:
+    name: Calculator API
+    url: 'https://calculator.spilab.es/terms'
+    email: jberolm@unex.es
+servers:
+  - url: 'http://calculator.spilab.es'
+    description: Production server
+  - url: 'http://beta.calculator.spilab.es'
+    description: Beta server
+paths:
+  /calculate:
+    get:
+      tags:
+        - Basic
+      summary: Executes an opeation with two operands and an operator
+      description: Executes an opeation with two operands and an operator
+      operationId: calculateoperation
+      parameters:
+        - name: operand1
+          in: query
+          description: First operand
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: operator
+          in: query
+          description: Operator to execute
+          required: true
+          schema:
+            type: string
+            example: '+'
+        - name: operand2
+          in: query
+          description: Second Operand
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example:  2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '3'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+  /mem:
+    post:
+      tags:
+        - Basic
+      summary: Stores a number in the memory
+      description: Stores a number in the memory
+      operationId: storeData
+      parameters:
+      - name: value
+        in: query
+        description: Value to store
+        required: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: boolean
+                example: true
+        '404':
+          $ref: '#/components/responses/404NotFound'
+components:
+  responses:
+    404NotFound:
+      description: Not found response
+      content:
+        text/plain:
+          schema:
+            title: Endpoint not found
+            type: string
+            example: Not found
