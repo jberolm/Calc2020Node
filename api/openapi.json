@@ -1,0 +1,169 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "contact": {
+      "email": "jberolm@unex.es",
+      "name": "Calculator API",
+      "url": "https://calculator.spilab.es/terms"
+    },
+    "description": "This API provides different services to obtain the result of different operations.",
+    "termsOfService": "https://calculator.spilab.es/terms",
+    "title": "Calculator API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "description": "Production server",
+      "url": "http://calculator.spilab.es"
+    },
+    {
+      "description": "Beta server",
+      "url": "https://calc2020node.herokuapp.com"
+    }
+  ],
+  "paths": {
+    "/calculate": {
+      "get": {
+        "description": "Executes an opeation with two operands and an operator",
+        "operationId": "calculateoperation",
+        "parameters": [
+          {
+            "description": "First operand",
+            "explode": true,
+            "in": "query",
+            "name": "operand1",
+            "required": true,
+            "schema": {
+              "example": 1,
+              "format": "int32",
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Operator to execute",
+            "explode": true,
+            "in": "query",
+            "name": "operator",
+            "required": true,
+            "schema": {
+              "example": "+",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Second Operand",
+            "explode": true,
+            "in": "query",
+            "name": "operand2",
+            "required": true,
+            "schema": {
+              "example": 2,
+              "format": "int32",
+              "type": "integer"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "example": "3",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "404": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "example": "Not found",
+                  "title": "Endpoint not found",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Not found response"
+          }
+        },
+        "summary": "Executes an opeation with two operands and an operator",
+        "tags": [
+          "Basic"
+        ],
+        "x-swagger-router-controller": "Basic"
+      }
+    },
+    "/mem": {
+      "post": {
+        "description": "Stores a number in the memory",
+        "operationId": "storeData",
+        "parameters": [
+          {
+            "description": "Value to store",
+            "explode": true,
+            "in": "query",
+            "name": "value",
+            "required": true,
+            "schema": {
+              "example": 1,
+              "format": "int32",
+              "type": "integer"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "404": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "example": "Not found",
+                  "title": "Endpoint not found",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Not found response"
+          }
+        },
+        "summary": "Stores a number in the memory",
+        "tags": [
+          "Basic"
+        ],
+        "x-swagger-router-controller": "Basic"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "404NotFound": {
+        "content": {
+          "text/plain": {
+            "schema": {
+              "example": "Not found",
+              "title": "Endpoint not found",
+              "type": "string"
+            }
+          }
+        },
+        "description": "Not found response"
+      }
+    },
+    "schemas": {}
+  }
+}
