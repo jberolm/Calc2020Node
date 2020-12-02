@@ -19,6 +19,14 @@ var serverPort = process.env.YOUR_PORT || process.env.PORT || 8080;
 var spec = fs.readFileSync(path.join(__dirname, '/api/openapi.yaml'), 'utf8');
 var oasDoc = jsyaml.safeLoad(spec);
 
+//-----------Swagger-stats
+var swStats = require('swagger-stats');    
+
+// Enable swagger-stats middleware in express app, passing swagger specification as option 
+app.use(swStats.getMiddleware({swaggerSpec:spec}));
+
+//----------------Swagger-stats
+
 var options_object = {
     controllers: path.join(__dirname, './controllers'),
     loglevel: 'info',
