@@ -17,11 +17,13 @@ var jsyaml = require('js-yaml');
 var serverPort = process.env.YOUR_PORT || process.env.PORT || 8080;
 
 var spec = fs.readFileSync(path.join(__dirname, '/api/openapi.yaml'), 'utf8');
-var apiSpec = fs.readFileSync(path.join(__dirname, '/api/openapi.json'), 'utf8');
 var oasDoc = jsyaml.safeLoad(spec);
 
 //-----------Swagger-stats
 var swStats = require('swagger-stats');    
+
+// Load your swagger specification 
+var apiSpec = require('./api/openapi.json');
 
 // Enable swagger-stats middleware in express app, passing swagger specification as option 
 app.use(swStats.getMiddleware({swaggerSpec:apiSpec}));
